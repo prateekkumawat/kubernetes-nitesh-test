@@ -112,4 +112,9 @@ kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/
 kubectl get node 
 kubectl get pod -A 
 
+k9s release manage: :::
 
+https://github.com/derailed/k9s
+
+
+curl -sS https://webinstall.dev/k9s | bash

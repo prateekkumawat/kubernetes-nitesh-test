@@ -1,0 +1,22 @@
+apiVersion: apps/v1      ### resource group api call 
+kind: Deployment         ### kind of resource which you want to manage 
+metadata:                ### name information of name label and resource annotations   
+  name: myapp
+spec:                    ### specification of resource  
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:               ### specific details of containr related  
+      containers:
+      - name: myapp
+        image: <Image>
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: <Port>

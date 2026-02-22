@@ -41,3 +41,6 @@
 # kubectl edit  secret -n namespace secretname
 
 # # kubectl delete  secret -n namespace secretname
+
+# kubectl run nginx --image=nginx --dry-run=client -o yaml   // collect yaml template 
+
