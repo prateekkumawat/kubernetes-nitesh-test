@@ -23,7 +23,7 @@ spec:
         env: 
         - name: MYSQL_ROOT_PASSWORD
           value: redhat 
-        - name: MYSQL_USERNAME
+        - name: MYSQL_USER
           value: datadbuser
         - name: MYSQL_PASSWORD
           value: redhat123
