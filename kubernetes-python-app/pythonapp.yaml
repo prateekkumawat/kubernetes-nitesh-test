@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-apps-deploy
+  labels:
+    name: python-apps-deploy
+    app: python
+  namespace: python-apps
+spec:
+  selector:
+    matchLabels:
+      app: python
+  template:
+    metadata:
+      labels:
+        app: python
+    spec:
+      imagePullSecrets:
+      - name: ecr-login
+      containers:
+      - name: python-apps-deploy
+        image: 605134434853.dkr.ecr.ap-south-1.amazonaws.com/testrepo:api-app-snapshot-0.1.1
+        env: 
+        - name: MYSQL_USER
+          value: datadbuser
+        - name: MYSQL_PASSWORD
+          value: redhat123    
+        - name: MYSQL_HOST
+          value: mysql-svc.python-apps.svc.cluster.local
+        - name: MYSQL_DB
+          value: testdb    
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "400m"
+          limits:
+            memory: "800Mi"
+            cpu: "800m"
+        ports:
+        - containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-apps-svc
+  namespace: python-apps
+spec:
+  selector:
+    app: python
+  type: NodePort  
+  ports:
+  - port: 5000
+    targetPort: 5000

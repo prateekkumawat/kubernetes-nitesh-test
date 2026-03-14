@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: python-apps
+spec:
+  selector:
+    matchLabels:
+      app: mysql-app
+  template:
+    metadata:
+      labels:
+        app: mysql-app
+    spec:
+      imagePullSecrets:
+      - name: ecr-login
+      containers:
+      - name: mysql-app
+        image: 605134434853.dkr.ecr.ap-south-1.amazonaws.com/testrepo:mysql
+        resources:
+          limits:
+            memory: "300Mi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 3306
+        env: 
+        - name: MYSQL_ROOT_PASSWORD
+          value: redhat 
+        - name: MYSQL_USER
+          value: datadbuser
+        - name: MYSQL_PASSWORD
+          value: redhat123
+        - name: MYSQL_DATABASE
+          value: testdb
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+  namespace: python-apps
+spec:
+  selector:
+    app: mysql-app
+  ports:
+  - port: 3306
+    targetPort: 3306
+    name: mysql 
+
+
