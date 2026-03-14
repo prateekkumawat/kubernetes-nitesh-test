@@ -18,9 +18,12 @@ spec:
       - name: mysql-app
         image: 605134434853.dkr.ecr.ap-south-1.amazonaws.com/testrepo:mysql
         resources:
-          limits:
+          requests:
             memory: "300Mi"
-            cpu: "1000m"
+            cpu: "500m"
+          limits:
+            memory: "800Mi"
+            cpu: "700m"
         ports:
         - containerPort: 3306
         env: 
