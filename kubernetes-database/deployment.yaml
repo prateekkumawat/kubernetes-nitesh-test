@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres-database
-  namespace: postgers
+  namespace: postgres
   labels:
     app: database
 spec:
