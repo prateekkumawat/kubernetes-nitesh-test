@@ -32,7 +32,7 @@ spec:
             secretKeyRef: 
               name: postgres-secret
               key: password
-        - name: PGDATABASE
+        - name: POSTGRES_DB
           value: testdata      
 
 ---

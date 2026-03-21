@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+  namespce: postgres
+spec:
+  selector:
+    matchLabels:
+      app: pgclient
+  template:
+    metadata:
+      labels:
+        app: pgclient
+    spec:
+      containers:
+      - name: pgadmin
+        image: elestio/pgadmin:latest
+        resources: 
+          requests:
+            cpu: "100m" 
+            memory: "100Mi"   
+          limits:
+            cpu: "150m" 
+            memory: "200Mi"  
+        ports:
+        - containerPort: 8080
+        env: 
+        - name: PGADMIN_DEFAULT_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: pgadmin-secret
+              key: user
+        - name: PGADMIN_DEFAULT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pgadmin-secret
+              key: password        
+        - name: PGADMIN_LISTEN_PORT
+          value: "8080"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgadmin-svc
+  namespace: postgres
+spec:
+  selector:
+    app: pgclient
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: pgclient
+    nodePort: 32144
