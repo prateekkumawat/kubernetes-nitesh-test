@@ -26,10 +26,7 @@ spec:
         - containerPort: 8080
         env: 
         - name: PGADMIN_DEFAULT_EMAIL
-          valueFrom:
-            secretKeyRef:
-              name: pgadmin-secret
-              key: user
+          value: admin@prateek.com
         - name: PGADMIN_DEFAULT_PASSWORD
           valueFrom:
             secretKeyRef:
