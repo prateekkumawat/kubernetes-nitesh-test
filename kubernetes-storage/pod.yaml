@@ -12,7 +12,7 @@ spec:
       claimName: store-data-mount
   containers:
   - name: myapp
-    image: ubuntu:latest
+    image: busybox:latest
     resources:
       requests:
         memory: "100Mi"
