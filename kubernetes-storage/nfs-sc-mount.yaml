@@ -13,7 +13,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storgeClassName: file-share-store
+  storageClassName: file-share-store
   accessModes:
     - ReadWriteOnce
 
