@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nfs-mount-data
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc
+  namespace: nfs-mount-data
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  storgeClassName: file-share-store
+  accessModes:
+    - ReadWriteOnce
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  namespace: nfs-mount-data
+  labels:
+    app.kubernetes.io/name: myapp
+spec:
+  containers:
+  - name: myapp
+    image: ubuntu:latest
+    resources:
+      requests: 
+        memory: "100Mi"
+        cpu: "300m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
+    command:
+      - sleep
+      - "3600"
+    volumeMounts:
+    - name: data-vol
+      mountPath: /mnt   
+  volumes:
+  - name: data-vol
+    persistentVolumeClaim: 
+      claimName: nfs-pvc
