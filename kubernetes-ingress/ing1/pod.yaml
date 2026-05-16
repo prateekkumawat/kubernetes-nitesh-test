@@ -14,7 +14,7 @@ metadata:
 spec:
   containers:
   - name: app1
-    image:app.kubernetes.io/name: app1
+    image: prateekkumawat/niteshapp:app1
     resources:
       limits:
         memory: "128Mi"
