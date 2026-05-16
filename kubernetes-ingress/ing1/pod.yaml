@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app1
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app1
+  namespace: app1
+  labels:
+    app.kubernetes.io/name: app1
+spec:
+  containers:
+  - name: app1
+    image:app.kubernetes.io/name: app1
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "300m"
+    ports:
+      - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app1-svc
+  namespace: app1
+spec:
+  selector:
+    app.kubernetes.io/name: app1
+  ports:
+  - port: 80
+    targetPort: 80
