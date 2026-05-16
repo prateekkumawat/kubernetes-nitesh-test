@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app2
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app2
+  namespace: app2
+  labels:
+    app.kubernetes.io/name: app2
+spec:
+  containers:
+  - name: app2
+    image: prateekkumawat/niteshapp:app2
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "300m"
+    ports:
+      - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app2-svc
+  namespace: app2
+  labels:
+    app.kubernetes.io/name: app2
+spec:
+  selector:
+    app.kubernetes.io/name: app2
+  ports:
+  - port: 80
+    targetPort: 80
