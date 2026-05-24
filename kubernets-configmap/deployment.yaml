@@ -25,9 +25,13 @@ spec:
         configMap:
           name: webconfig 
       - name: html-volume
-        emptyDir: {}
+        host_path: 
+          path: /mnt/html/
+          type: Directory
       - name: web-html-volume
-        emptyDir: {}  
+        host_path:
+          path: /mnt/web/
+          type: Directory
 
       containers:
       - name: confserver
