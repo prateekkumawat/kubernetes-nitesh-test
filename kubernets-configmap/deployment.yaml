@@ -70,7 +70,7 @@ metadata:
   namespace: myconf
 spec:
   selector:
-    app: confserer
+    app: confserver
   ports:
   - port: 80
     targetPort: 80
