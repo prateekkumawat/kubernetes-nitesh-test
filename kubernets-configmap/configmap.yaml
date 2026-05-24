@@ -10,12 +10,12 @@ data:
     <VirtualHost *:80>
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/html
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
+        ErrorLog /var/log/httpd/error.log
+        CustomLog /var/log/httpd/access.log combined
     </VirtualHost>  
-    <documentroot /var/www/html>
+    <Directory /var/www/html>
         Require all granted 
-    </documentroot>    
+    </Directory>    
 
 ---
 apiVersion: v1
@@ -30,9 +30,9 @@ data:
     <VirtualHost *:8080>
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/web
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
+        ErrorLog /var/log/httpd/error.log
+        CustomLog /var/log/httpd/access.log combined
     </VirtualHost>  
-    <documentroot /var/www/web>
+    <Directory /var/www/web>
         Require all granted 
-    </documentroot>
+    </Directory>
