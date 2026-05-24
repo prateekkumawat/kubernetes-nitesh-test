@@ -25,11 +25,11 @@ spec:
         configMap:
           name: webconfig 
       - name: html-volume
-        host_path: 
+        hostPath: 
           path: /mnt/html/
           type: Directory
       - name: web-html-volume
-        host_path:
+        hostPath:
           path: /mnt/web/
           type: Directory
 
