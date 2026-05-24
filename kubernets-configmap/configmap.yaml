@@ -7,7 +7,6 @@ metadata:
     app: confserver
 data:
   default.conf: |
-    Listen 80
     <VirtualHost *:80>
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/html
