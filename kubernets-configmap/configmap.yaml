@@ -15,7 +15,7 @@ data:
     </VirtualHost>  
     <documentroot /var/www/html>
         Require all granted 
-    </documetroot>    
+    </documentroot>    
 
 ---
 apiVersion: v1
