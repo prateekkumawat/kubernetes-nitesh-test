@@ -21,13 +21,9 @@ spec:
       - name: apache-defaultconfig-volume
         configMap:
           name: apacheconfig
-          items:
-          - key: default.conf
       - name: apache-webconfig-volume
         configMap:
-          name: webconfig
-          items:
-          - key: web.conf    
+          name: webconfig 
       containers:
       - name: confserver
         image: rateekkumawat/niteshapp:webserver
