@@ -35,4 +35,4 @@ data:
     </VirtualHost>  
     <documentroot /var/www/web>
         Require all granted 
-    </documetroot>
+    </documentroot>
