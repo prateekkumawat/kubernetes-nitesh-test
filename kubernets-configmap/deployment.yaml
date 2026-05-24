@@ -24,6 +24,11 @@ spec:
       - name: apache-webconfig-volume
         configMap:
           name: webconfig 
+      - name: html-volume
+        emptyDir: {}
+      - name: web-html-volume
+        emptyDir: {}  
+
       containers:
       - name: confserver
         image: prateekkumawat/niteshapp:webserver
@@ -49,6 +54,10 @@ spec:
         - name: apache-webconfig-volume
           mountPath: /etc/httpd/conf.d/web.conf 
           subPath: web.conf  
+        - name: html-volume
+          mountPath: /var/www/html
+        - name: web-html-volume
+          mountPath: /var/www/web
 ---
 apiVersion: v1
 kind: Service
