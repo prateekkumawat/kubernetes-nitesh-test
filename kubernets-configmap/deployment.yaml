@@ -27,6 +27,7 @@ spec:
       containers:
       - name: confserver
         image: prateekkumawat/niteshapp:webserver
+        imagePullPolicy: Always
         resources:
           limits:
             memory: "128Mi"

@@ -29,10 +29,10 @@ data:
   web.conf: |
     <VirtualHost *:8080>
         ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/html
+        DocumentRoot /var/www/web
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
     </VirtualHost>  
-    <documentroot /var/www/html>
+    <documentroot /var/www/web>
         Require all granted 
     </documetroot>
