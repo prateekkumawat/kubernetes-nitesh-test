@@ -1,0 +1,14 @@
+1. setup kubenetes cluster with calico networks
+tips: 192.168.0.0/16 is pod networks require defaults for calico 
+curl https://raw.githubusercontent.com/projectcalico/calico/v3.32.0/manifests/calico.yaml -O
+
+If you are using pod CIDR 192.168.0.0/16, skip to the next step. If you are using a different pod CIDR with kubeadm, no changes are required — Calico will automatically detect the CIDR based on the running configuration. For other platforms, make sure you uncomment the CALICO_IPV4POOL_CIDR variable in the manifest and set it to the same value as your chosen pod CIDR.
+
+Customize the manifest as necessary.
+
+2. Setup multi-host master cluster with haproxy and setup calico/flannel and setup worker node. access your cluster setup workstation machine. 
+
+3. setup access your k9s on workstation 
+
+4. add setup worker in exist cluster.>>> basic setup create and use join command 
+

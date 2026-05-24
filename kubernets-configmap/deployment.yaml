@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: myconf 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: confserver
+  namespace: myconf
+spec:
+  selector:
+    matchLabels:
+      app: confserver
+  template:
+    metadata:
+      labels:
+        app: confserver
+    spec:
+      volumes:
+      - name: apache-defaultconfig-volume
+        configMap:
+          name: apacheconfig
+          items:
+          - key: default.conf
+      - name: apache-webconfig-volume
+        configMap:
+          name: webconfig
+          items:
+          - key: web.conf    
+      containers:
+      - name: confserver
+        image: rateekkumawat/niteshapp:webserver
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 82
+          name: http
+        - containerPort: 80
+          name: defaulthttp
+        - containerPort: 8080
+          name: app-http
+        command:
+          - sleep
+          - "3600"
+        volumeMounts: 
+        - name: apache-defaultconfig-volume
+          mountPath: /etc/httpd/conf.d/default.conf
+          subPath: default.conf
+        - name: apache-webconfig-volume
+          mountPath: /etc/httpd/conf.d/web.conf 
+          subPath: web.conf  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: confserver-service
+  namespace: myconf
+spec:
+  selector:
+    app: confserer
+  ports:
+  - port: 80
+    targetPort: 80
+    name: http
+  - port: 82
+    targetPort: 82  
+    name: defaulthttp
+  - port: 8080
+    targetPort: 8080
+    name: app-http  
+
