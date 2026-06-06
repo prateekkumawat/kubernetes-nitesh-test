@@ -14,25 +14,36 @@ spec:
       labels:
         app: nexus-server
     spec:
+      securityContext:
+        fsGroup: 200
+
       containers:
-        - name: nexus
-          image: sonatype/nexus3:latest
-          resources:
-            limits:
-              memory: "4Gi"
-              cpu: "1000m"
-            requests:
-              memory: "2Gi"
-              cpu: "500m"
-          ports:
-            - containerPort: 8081
-          volumeMounts:
-            - name: nexus-data
-              mountPath: /nexus-data
-      volumes:
+      - name: nexus
+        image: sonatype/nexus3:latest
+
+        securityContext:
+          runAsUser: 200
+          runAsGroup: 200
+
+        ports:
+        - containerPort: 8081
+
+        resources:
+          limits:
+            memory: "4Gi"
+            cpu: "1000m"
+          requests:
+            memory: "2Gi"
+            cpu: "500m"
+
+        volumeMounts:
         - name: nexus-data
-          persistentVolumeClaim:
-            claimName: nexus-pv-claim
+          mountPath: /nexus-data
+
+      volumes:
+      - name: nexus-data
+        persistentVolumeClaim:
+          claimName: nexus-pv-claim
 
 ---
 # create a persistent volume for nexus deployment
