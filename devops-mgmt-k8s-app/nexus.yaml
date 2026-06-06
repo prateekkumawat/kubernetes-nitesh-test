@@ -1,0 +1,88 @@
+# create a nexus deployment in devops-tools namespace
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus
+  namespace: build
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nexus-server
+  template:
+    metadata:
+      labels:
+        app: nexus-server
+    spec:
+      containers:
+        - name: nexus
+          image: sonatype/nexus3:latest
+          resources:
+            limits:
+              memory: "4Gi"
+              cpu: "1000m"
+            requests:
+              memory: "2Gi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8081
+          volumeMounts:
+            - name: nexus-data
+              mountPath: /nexus-data
+      volumes:
+        - name: nexus-data
+          persistentVolumeClaim:
+            claimName: nexus-pv-claim
+
+---
+# create a persistent volume for nexus deployment
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nexus-pv-claim
+  namespace: build
+spec:
+  storageClassName: ebs-sc
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-service
+  namespace: build
+spec:
+  selector: 
+    app: nexus-server
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8081   
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nexus-ingress
+  namespace: build
+  labels:
+    app: nexus-server
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: nexus.mgmt.ocelottraining.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: nexus-service
+            port: 
+              number: 80
