@@ -141,6 +141,7 @@ metadata:
     app: jenkins-server
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+     nginx.ingress.kubernetes.io/proxy-body-size: "200m"
 spec:
   ingressClassName: nginx
   rules:
