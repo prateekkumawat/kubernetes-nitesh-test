@@ -16,7 +16,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: sonar-extensions-claim
-  namespae: build
+  namespace: build
 spec:
   storageClassName: ebs-sc
   accessModes:
