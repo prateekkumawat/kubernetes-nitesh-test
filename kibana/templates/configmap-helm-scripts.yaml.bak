@@ -14,7 +14,7 @@ metadata:
     {{- end }}
 data:
   manage-es-token.js: |
-    const https = require('https');
+    const https = require('http');
     const fs = require('fs');
 
     // Read environment variables
