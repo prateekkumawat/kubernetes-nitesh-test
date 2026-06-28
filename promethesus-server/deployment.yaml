@@ -32,8 +32,6 @@ spec:
           volumeMounts:
             - name: prometheus-config-volume
               mountPath: /etc/prometheus/
-            - name: prometheus-storage-volume
-              mountPath: /prometheus/
           resources: 
             limits: 
               cpu: 500m
@@ -46,10 +44,7 @@ spec:
           configMap:
             defaultMode: 420
             name: prometheus-server-conf
-        - name: prometheus-storage-volume
-          hostPath:
-            path: /opt/prometheus-data
-            create: true
+
 
 ---
 apiVersion: v1
